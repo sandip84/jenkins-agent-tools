@@ -30,3 +30,4 @@ RUN aws --version && kubectl version --client && git --version
 RUN useradd -m -s /bin/bash jenkins
 USER jenkins
 WORKDIR /home/jenkins
+CMD ["cat"]
