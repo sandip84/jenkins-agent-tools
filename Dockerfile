@@ -14,10 +14,16 @@ RUN apt-get update && \
       less && \
     rm -rf /var/lib/apt/lists/*
 
-# AWS CLI v2
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip && \
+# # AWS CLI v2
+# RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip && \
+#     unzip awscliv2.zip && \
+#     ./aws/install && \
+#     rm -rf aws awscliv2.zip
+
+# AWS CLI v2 (explicit install dir)
+RUN curl -sSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip && \
     unzip awscliv2.zip && \
-    ./aws/install && \
+    ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli && \
     rm -rf aws awscliv2.zip
 
 # kubectl

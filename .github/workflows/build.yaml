@@ -27,4 +27,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
+          no-cache: true
           tags: ghcr.io/sandip84/jenkins-agent-tools:${{ github.ref_name }}
