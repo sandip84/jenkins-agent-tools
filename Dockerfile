@@ -31,6 +31,18 @@ RUN curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/st
     install -m 0755 kubectl /usr/local/bin/kubectl && \
     rm kubectl
 
+# Install kustomize
+RUN curl -s https://api.github.com/repos/kubernetes-sigs/kustomize/releases/latest \
+    | grep "browser_download_url.*linux_amd64.tar.gz" \
+    | cut -d '"' -f 4 \
+    | xargs curl -L -o /tmp/kustomize.tar.gz \
+    && tar -xzf /tmp/kustomize.tar.gz -C /usr/local/bin \
+    && chmod +x /usr/local/bin/kustomize \
+    && rm /tmp/kustomize.tar.gz
+
+# Verify install
+RUN kustomize version
+
 ENV PATH="/usr/local/bin:/usr/local/aws-cli/v2/current/bin:${PATH}"    
 RUN aws --version && kubectl version --client && git --version
 
